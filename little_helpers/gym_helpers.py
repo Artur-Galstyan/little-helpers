@@ -2,8 +2,26 @@ from typing import Callable, Optional, Tuple
 
 import jax
 import jax.numpy as jnp
+import torch
 from gymnasium import Env
 from jaxtyping import Array, Float
+from torch.utils.data import Dataset
+
+
+class RLDataset(Dataset):
+    def __init__(self, rewards, actions, obs):
+        self.rewards = rewards
+        self.actions = actions
+        self.obs = obs
+
+    def __len__(self):
+        return len(self.rewards)
+
+    def __getitem__(self, index):
+        reward = torch.tensor(self.rewards[index])
+        action = torch.tensor(self.actions[index])
+        ob = torch.tensor(self.obs[index])
+        return ob, action, reward
 
 
 def get_trajectory(
