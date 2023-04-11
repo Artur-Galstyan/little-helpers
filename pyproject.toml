@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "little-helper-functions"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Artur A. Galstyan <mail@arturgalstyan.dev>"]
 readme = "README.md"

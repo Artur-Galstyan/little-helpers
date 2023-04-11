@@ -1,9 +1,9 @@
-
+import jax.numpy as jnp
 import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from little_helpers.rl_helpers import get_future_rewards
+from little_helpers.rl_helpers import get_future_rewards, get_total_discounted_rewards
 
 # Test cases
 test_data = [
@@ -25,6 +25,8 @@ test_data = [
 @pytest.mark.parametrize("rewards, gamma, expected", test_data)
 def test_get_future_rewards(rewards: np.ndarray, gamma: float, expected: np.ndarray):
     result = get_future_rewards(rewards, gamma)
+    assert_allclose(result, expected, atol=1e-4)
+    result = get_total_discounted_rewards(jnp.array(rewards), gamma).reshape(-1)
     assert_allclose(result, expected, atol=1e-4)
 
 
